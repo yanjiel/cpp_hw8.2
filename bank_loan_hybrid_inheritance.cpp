@@ -1,5 +1,8 @@
-//https://github.com/aryashah2k/OOP-In-CPlusPlus/tree/main/Lab%20Files%20-%20Code%20%2B%20Manuals/Lab%209%20Programs%20%5BCode%20Plus%20Theory%5D
+
 /*
+The github repo is here: 
+https://github.com/aryashah2k/OOP-In-CPlusPlus/tree/main/Lab%20Files%20-%20Code%20%2B%20Manuals/Lab%209%20Programs%20%5BCode%20Plus%20Theory%5D
+
 Analyze it according to the SOLID principles
 The SOLID principles are:
 1. Single responsibility principle
@@ -14,30 +17,62 @@ The SOLID principles are:
     Abstractions should not depend on details. Details should depend on abstractions.
 
 What does it do well?
-It does ok with the single responsibility principle, since it is a relatively simple program. Like insurance premium calculation is defined in insurance classes, 
+1. It does ok with the single responsibility principle, since it is a relatively simple program. Like insurance premium calculation is defined in insurance classes, 
 and cliam settlement is calculated in claim class
 
-It does ok being closed for modification for the open/closed principle, since it all member values and functions are encapsulated in classes.
+2. It does ok being closed for modification for the open/closed principle, since it all member values and functions are encapsulated in classes.
 
-It does ok with the Liskov substitution principle, the superclass in this case is the bank class, and it's a class with relatively 
+3. It does ok with the Liskov substitution principle, the superclass in this case is the bank class, and it's a class with relatively 
 simple member function withdraw and deposit, that will not need to be changed by subclasses.
 
 
 What does it do badly?
-It does poorly on being open for extension in the open/closed principle. The claim inherits somewhat "specialized" life_insurance class and car_insurance,
+1. It does poorly on being open for extension in the open/closed principle. The claim inherits somewhat "specialized" life_insurance class and car_insurance,
 that means if life_insurance needs to change, then claim might also need to change. Moreover, if there is more insurance types, then we need to change 
 the signature of claim to inherit more "specialized" insurance classes
 
-It does poorly with the Interface Segregation principle, which requires that "clients should not be forced to depend upon interfaces that they do not use."
+2. It does poorly with the Interface Segregation principle, which requires that "clients should not be forced to depend upon interfaces that they do not use."
 However, car_insurance and life_insurance, even though neither requires deposit methods, will both have access to a deposit method by inheriting from the bank class
 Similarly, claim does not need a draw method, nor does it need a calculate_premium method, but by inheriting from the insurance class, it is very possible that later  
 claim could be impacted by methods that it do not use
 
-It does poorly wit the dependency inversion principle, since claim does not inherit from a more general class, but instead on a more specialized life_insurance and car_insurace, there is dependcy of claim on details of lower level classes
+3. It does poorly wit the dependency inversion principle, since claim does not inherit from a more general class, but instead on a more specialized life_insurance and car_insurace, there is dependcy of claim on details of lower level classes
 
 
 Can you suggest improvements?
+1. Make abstract balance class similar to bank class
+   member variable(s): name, address, age, account and balance
 
+   implemented method(s): open_account
+   umimplemented method(s): deposit, draw and display_info
+
+2. Make Bank inherit from balance class
+   existing member variable(s): name, address, age, account and balance
+   add member variable(s): None
+
+   existing implemented method(s): open_account
+   implement unimplemented methods(s): deposit, draw, and display_info
+   leave unimplemented method(s): None
+
+3. Make abstract insurance class inheriting from balance class
+   existing member variable(s): name, address, age, account and balance
+   add member variable(s): premium
+
+   existing implemented method(s): open_account
+   implement unimplemented method(s): None
+   leave unimplemented method(s): deposit, draw, calculate_premium
+   add unimplemented method(s): calculate_premium method
+
+4. Any instantiated insurance objects like life_insurance and car_insurace will need to implement draw and calculate_premium method 
+
+5. Make claim class inherit from insurance class
+   existing member variable(s): name, address, age, account, balance and premium
+   add member variable(s): settlemnt_amount
+
+   existing implemented method(s): open_account
+   implement unimplemented method(s): deposit, display_info
+   leave unimplemented method(s): draw, calculate_premium
+   add implemented method(s): calculate_settlement
 */
 
 
